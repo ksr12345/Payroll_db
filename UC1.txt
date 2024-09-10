@@ -1,0 +1,21 @@
+mysql> SHOW DATABASES;
++------------------------+
+| Database               |
++------------------------+
+| car_insurance          |
+| carinsurance           |
+| information_schema     |
+| mysql                  |
+| performance_schema     |
+| restaurant             |
+| students               |
+| sys                    |
+| transaction_conurrency |
++------------------------+
+9 rows in set (0.23 sec)
+
+mysql> CREATE DATABASE Payroll_Services;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> USE Payroll_Services;
+Database changed

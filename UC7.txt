@@ -1,0 +1,46 @@
+mysql> SELECT gender, AVG(salary) FROM Employee_Payroll GROUP BY gender;
++--------+-------------+
+| gender | AVG(salary) |
++--------+-------------+
+| M      |     2000000 |
+| F      |     3000000 |
++--------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT gender, COUNT(name) FROM Employee_Payroll GROUP BY gender;
++--------+-------------+
+| gender | COUNT(name) |
++--------+-------------+
+| M      |           2 |
+| F      |           1 |
++--------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT gender, SUM(salary) FROM Employee_Payroll GROUP BY gender;
++--------+-------------+
+| gender | SUM(salary) |
++--------+-------------+
+| M      |     4000000 |
+| F      |     3000000 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT MIN(salary) FROM Employee_Payroll GROUP BY salary;
++-------------+
+| MIN(salary) |
++-------------+
+|     1000000 |
+|     3000000 |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name, MAX(salary) FROM Employee_Payroll GROUP BY salary;
++------+-------------+
+| name | MAX(salary) |
++------+-------------+
+| Bill |     1000000 |
+| Mark |     3000000 |
++------+-------------+
+2 rows in set (0.00 sec)
+
+

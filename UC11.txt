@@ -1,0 +1,117 @@
+mysql> CREATE TABLE Company (
+    ->     Company_id INT PRIMARY KEY,
+    ->     Company_name VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE Department (
+    ->     Dept_id INT PRIMARY KEY,
+    ->     Dept_name VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE Employee (
+    ->     E_id INT PRIMARY KEY,
+    ->     Company_id INT,
+    ->     name VARCHAR(255) NOT NULL,
+    ->     phone VARCHAR(15),
+    ->     address VARCHAR(255),
+    ->     gender CHAR(1),
+    ->     FOREIGN KEY (Company_id) REFERENCES Company(Company_id)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE TABLE Payroll (
+    ->     E_id INT PRIMARY KEY,
+    ->     basic_pay DECIMAL(10, 2) NOT NULL,
+    ->     deductions DECIMAL(10, 2) NOT NULL,
+    ->     taxable_pay DECIMAL(10, 2) GENERATED ALWAYS AS (basic_pay - deductions) STORED,
+    ->     tax DECIMAL(10, 2) NOT NULL,
+    ->     net_pay DECIMAL(10, 2) GENERATED ALWAYS AS (taxable_pay - tax) STORED,
+    ->     FOREIGN KEY (E_id) REFERENCES Employee(E_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE Employee_Department (
+    ->     E_id INT,
+    ->     Dept_id INT,
+    ->     PRIMARY KEY (E_id, Dept_id),
+    ->     FOREIGN KEY (E_id) REFERENCES Employee(E_id),
+    ->     FOREIGN KEY (Dept_id) REFERENCES Department(Dept_id)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SHOW TABLES;
++----------------------------+
+| Tables_in_payroll_services |
++----------------------------+
+| company                    |
+| department                 |
+| employee                   |
+| employee_department        |
+| payroll                    |
++----------------------------+
+5 rows in set (0.04 sec)
+
+mysql> INSERT INTO Company (Company_id, Company_name) VALUES (1, 'Tech Innovations Inc.');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Company (Company_id, Company_name) VALUES (2, 'Creative Solutions Ltd.');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Company (Company_id, Company_name) VALUES (3, 'Global Enterprises');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Department (Dept_id, Dept_name) VALUES (1, 'Engineering');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Department (Dept_id, Dept_name) VALUES (2, 'Marketing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Department (Dept_id, Dept_name) VALUES (3, 'Human Resources');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Department (Dept_id, Dept_name) VALUES (4, 'Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee (E_id, Company_id, name, phone, address, gender) VALUES (101, 1, 'Alice Johnson', '555-1234', '123 Elm Street', 'F');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Employee (E_id, Company_id, name, phone, address, gender) VALUES (102, 1, 'Bob Smith', '555-5678', '456 Oak Avenue', 'M');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Employee (E_id, Company_id, name, phone, address, gender) VALUES (103, 2, 'Charlie Brown', '555-8765', '789 Pine Road', 'M');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee (E_id, Company_id, name, phone, address, gender) VALUES (104, 3, 'Diana Green', '555-4321', '321 Maple Drive', 'F');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Payroll (E_id, basic_pay, deductions, tax) VALUES (101, 6000.00, 500.00, 500.00);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Payroll (E_id, basic_pay, deductions, tax) VALUES (102, 6500.00, 600.00, 600.00);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Payroll (E_id, basic_pay, deductions, tax) VALUES (103, 7000.00, 550.00, 700.00);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Payroll (E_id, basic_pay, deductions, tax) VALUES (104, 7200.00, 650.00, 750.00);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (101, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (101, 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (102, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (103, 3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (104, 4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Employee_Department (E_id, Dept_id) VALUES (103, 4);
+Query OK, 1 row affected (0.00 sec)
